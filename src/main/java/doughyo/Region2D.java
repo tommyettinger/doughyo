@@ -76,17 +76,18 @@ public class Region2D {
             return;
         }
         ints = new IntArrayList(edgeSize / 10 + 2);
-        tmp = edge.firstInt();
-        ints.add((tmp << 8) | edgeSize - 1);
-        if(edgeSize > 1) {
+        while (edgeSize > 0) {
+            tmp = edge.removeFirstInt();
+            ints.add((tmp << 8) | --edgeSize);
             CELL_WISE:
-            while (!edge.isEmpty()) {
+            while (edgeSize > 0) {
                 tx = tmp >>> 12;
                 ty = tmp & 0xFFF;
                 for (int i = 0; i < 8; i++) {
                     if (edge.remove(tmp = (((tx + chebyshevX[i]) << 12) | (ty + chebyshevY[i])))) {
+                        edgeSize--;
                         work |= i << (3 * ctr++);
-                        if(ctr >= 10 || edge.isEmpty())
+                        if(ctr >= 10 || edgeSize == 0)
                         {
                             ints.add(work);
                             work = 0;
@@ -97,7 +98,8 @@ public class Region2D {
                 }
                 break;
             }
-            currentLimit = ints.size() + currentLimit;
+            edgeSize = Math.min(256, edge.size());
+            currentLimit = ints.size();
             limits.add(currentLimit);
         }
         data = new int[limits.size()][];
