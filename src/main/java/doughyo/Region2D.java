@@ -57,18 +57,21 @@ public class Region2D {
                     if(x == 0 || y == 0 || x == width - 1 || y == height - 1)
                     {
                         edge.add((x << 12) | y);
-                        continue;
+                        System.out.print("("+x+ ','+y+')');
                     }
-                    for (int i = 0; i < dirs; i++) {
-                        if(!full[x + moveX[i]][y + moveY[i]])
-                        {
-                            edge.add((x << 12) | y);
-                            break;
+                    else {
+                        for (int i = 0; i < dirs; i++) {
+                            if (!full[x + moveX[i]][y + moveY[i]]) {
+                                edge.add((x << 12) | y);
+                                System.out.print("(" + x + ',' + y + ')');
+                                break;
+                            }
                         }
                     }
                 }
             }
         }
+        System.out.println();
         edgeSize = Math.min(256, edge.size());
         if(edgeSize == 0)
         {
@@ -96,6 +99,9 @@ public class Region2D {
                         continue CELL_WISE;
                     }
                 }
+                ints.add(work);
+                work = 0;
+                ctr = 0;
                 break;
             }
             edgeSize = Math.min(256, edge.size());

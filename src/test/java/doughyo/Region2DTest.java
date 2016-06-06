@@ -25,6 +25,14 @@ public class Region2DTest {
             new boolean[]{false, true , true , true , false},
             new boolean[]{false, true , true , true , false},
             new boolean[]{false, true , true , true , false},
+    }, data3 = new boolean[][]{
+            new boolean[]{false, false, false, false, false},
+            new boolean[]{false, true , true , true , false},
+            new boolean[]{false, true , true , true , false},
+            new boolean[]{false, false, true , true , false},
+            new boolean[]{false, true , true , true , false},
+            new boolean[]{false, true , true , false, false},
+            new boolean[]{false, true , true , true , false},
     }, dataBig = new boolean[256][256];
 
     static {
@@ -64,7 +72,11 @@ public class Region2DTest {
         System.out.println();
         runBoolean(data2);
         System.out.println();
+        runBoolean(data3);
+
+        System.out.println();
         runBoolean(dataBig);
+
     }
     public void runBoolean(boolean[][] dat)
     {
@@ -77,14 +89,17 @@ public class Region2DTest {
         for (int i = 0; i < coded.length; i++) {
             int curr = coded[i][0], x = curr >>> 20, y = (curr >>> 8) & 0xFFF, span = curr & 0xFF, idx = 1;
             System.out.print("start: x:" + x + ",y:" + y + " with span " + span + ": ");
-            for (int b = 0, total = 0; total <= span; total++) {
-                System.out.print((coded[i][idx] >>> b++ * 3) & 7);
-                System.out.print(", ");
+            for (int b = 0, total = 0; b <= span; total++) {
                 if (b >= 10) {
                     b = 0;
                     idx++;
                     System.out.print("ENDINT ");
                 }
+                if(idx >= coded[i].length)
+                    break;
+                System.out.print((coded[i][idx] >>> b++ * 3) & 7);
+                System.out.print(", ");
+
             }
             System.out.println();
             /*
