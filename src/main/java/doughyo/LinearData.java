@@ -713,7 +713,7 @@ public class LinearData implements Serializable{
      */
     public <A> LinearData(A[] items, CheckArray<A> check, int lengthA)
     {
-        if(items == null || items.length == 0 || lengthA == 0) {
+        if(items == null || items.length == 0 || lengthA <= 0) {
             bounds = new int[]{0, 0};
             data = new boolean[0];
             return;
@@ -748,14 +748,14 @@ public class LinearData implements Serializable{
      */
     public <A> LinearData(A[][] items, CheckArray<A> check, int lengthA)
     {
-        if(items == null || items.length == 0 || lengthA == 0) {
-            bounds = new int[]{0, 0};
+        if(items == null || items.length == 0 || items[0].length == 0 || lengthA <= 0) {
+            bounds = new int[]{0, 0, 0};
             data = new boolean[0];
             return;
         }
         int l0 = items.length, l1 = items[0].length;
-        bounds = new int[]{l0, l1};
-        int b = validateBounds(bounds, 2);
+        bounds = new int[]{l0, l1, lengthA};
+        int b = validateBounds(bounds, 3);
         data = new boolean[b];
         boolean[] inner;
 
@@ -788,14 +788,15 @@ public class LinearData implements Serializable{
      */
     public <A> LinearData(A[][][] items, CheckArray<A> check, int lengthA)
     {
-        if(items == null || items.length == 0 || lengthA == 0) {
-            bounds = new int[]{0, 0};
+        if(items == null || items.length == 0 || items[0].length == 0 || items[0][0].length == 0
+                || lengthA <= 0) {
+            bounds = new int[]{0, 0, 0, 0};
             data = new boolean[0];
             return;
         }
         int l0 = items.length, l1 = items[0].length, l2 = items[0][0].length;
-        bounds = new int[]{l0, l1};
-        int b = validateBounds(bounds, 2);
+        bounds = new int[]{l0, l1, l2, lengthA};
+        int b = validateBounds(bounds, 4);
         data = new boolean[b];
         boolean[] inner;
 
@@ -830,14 +831,15 @@ public class LinearData implements Serializable{
      *              also be a (possibly anonymous) inner class that implements CheckArray
      */
     public <A> LinearData(A[][][][] items, CheckArray<A> check, int lengthA) {
-        if (items == null || items.length == 0 || lengthA == 0) {
-            bounds = new int[]{0, 0};
+        if(items == null || items.length == 0 || items[0].length == 0 || items[0][0].length == 0
+                || items[0][0][0].length == 0 || lengthA <= 0) {
+            bounds = new int[]{0, 0, 0, 0};
             data = new boolean[0];
             return;
         }
         int l0 = items.length, l1 = items[0].length, l2 = items[0][0].length, l3 = items[0][0][0].length;
-        bounds = new int[]{l0, l1};
-        int b = validateBounds(bounds, 2);
+        bounds = new int[]{l0, l1, l2, l3, lengthA};
+        int b = validateBounds(bounds, 5);
         data = new boolean[b];
         boolean[] inner;
 
@@ -875,15 +877,16 @@ public class LinearData implements Serializable{
      *              also be a (possibly anonymous) inner class that implements CheckArray
      */
     public <A> LinearData(A[][][][][] items, CheckArray<A> check, int lengthA) {
-        if (items == null || items.length == 0 || lengthA == 0) {
-            bounds = new int[]{0, 0};
+        if(items == null || items.length == 0 || items[0].length == 0 || items[0][0].length == 0
+                || items[0][0][0].length == 0 || items[0][0][0][0].length == 0 || lengthA <= 0) {
+            bounds = new int[]{0, 0, 0, 0, 0, 0};
             data = new boolean[0];
             return;
         }
         int l0 = items.length, l1 = items[0].length, l2 = items[0][0].length, l3 = items[0][0][0].length,
                 l4 = items[0][0][0][0].length;
-        bounds = new int[]{l0, l1};
-        int b = validateBounds(bounds, 2);
+        bounds = new int[]{l0, l1, l2, l3, l4, lengthA};
+        int b = validateBounds(bounds, 6);
         data = new boolean[b];
         boolean[] inner;
 
@@ -924,15 +927,17 @@ public class LinearData implements Serializable{
      *              also be a (possibly anonymous) inner class that implements CheckArray
      */
     public <A> LinearData(A[][][][][][] items, CheckArray<A> check, int lengthA) {
-        if (items == null || items.length == 0 || lengthA == 0) {
-            bounds = new int[]{0, 0};
+        if(items == null || items.length == 0 || items[0].length == 0 || items[0][0].length == 0
+                || items[0][0][0].length == 0 || items[0][0][0][0].length == 0 || items[0][0][0][0][0].length == 0
+                || lengthA <= 0) {
+            bounds = new int[]{0, 0, 0, 0, 0, 0, 0};
             data = new boolean[0];
             return;
         }
         int l0 = items.length, l1 = items[0].length, l2 = items[0][0].length, l3 = items[0][0][0].length,
                 l4 = items[0][0][0][0].length, l5 = items[0][0][0][0][0].length;
-        bounds = new int[]{l0, l1};
-        int b = validateBounds(bounds, 2);
+        bounds = new int[]{l0, l1, l2, l3, l4, l5, lengthA};
+        int b = validateBounds(bounds, 7);
         data = new boolean[b];
         boolean[] inner;
 
@@ -976,15 +981,17 @@ public class LinearData implements Serializable{
      *              also be a (possibly anonymous) inner class that implements CheckArray
      */
     public <A> LinearData(A[][][][][][][] items, CheckArray<A> check, int lengthA) {
-        if (items == null || items.length == 0 || lengthA == 0) {
-            bounds = new int[]{0, 0};
+        if(items == null || items.length == 0 || items[0].length == 0 || items[0][0].length == 0
+                || items[0][0][0].length == 0 || items[0][0][0][0].length == 0 || items[0][0][0][0][0].length == 0
+                || items[0][0][0][0][0][0].length == 0 || lengthA <= 0) {
+            bounds = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
             data = new boolean[0];
             return;
         }
         int l0 = items.length, l1 = items[0].length, l2 = items[0][0].length, l3 = items[0][0][0].length,
                 l4 = items[0][0][0][0].length, l5 = items[0][0][0][0][0].length, l6 = items[0][0][0][0][0][0].length;
-        bounds = new int[]{l0, l1};
-        int b = validateBounds(bounds, 2);
+        bounds = new int[]{l0, l1, l2, l3, l4, l5, l6, lengthA};
+        int b = validateBounds(bounds, 8);
         data = new boolean[b];
         boolean[] inner;
 

@@ -321,7 +321,8 @@ public class Checks {
     }
     public static CheckArray<char[]> inChars(char... chars)
     {
-        char[] container = Arrays.copyOf(chars, chars.length);
+        char[] container = new char[chars.length];
+        System.arraycopy(chars, 0, container, 0, chars.length);
         Arrays.sort(container);
         return a -> {boolean[] b = new boolean[a.length];
             for (int i = 0; i < a.length; i++) {
