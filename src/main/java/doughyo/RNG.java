@@ -24,6 +24,7 @@ import java.util.Random;
  * Written in 2015 by Sebastiano Vigna (vigna@acm.org)
  * @author Sebastiano Vigna
  * @author Tommy Ettinger
+ * @author Eben Howard
  */
 public class RNG extends Random
 {

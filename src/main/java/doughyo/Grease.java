@@ -70,6 +70,15 @@ public class Grease {
         return data;
     }
 
+    public static long[] not(long[] original)
+    {
+        long[] data = new long[64];
+        for (int i = 0; i < 64; i++) {
+            data[i] = ~original[i];
+        }
+        return data;
+    }
+
     public static long[] translate(long[] original, int x, int y)
     {
         long[] data = new long[64];
@@ -100,6 +109,17 @@ public class Grease {
         return data;
     }
 
+    public static long[] fringe(long[] original)
+    {
+        long[] data = new long[64];
+        data[0] = ((original[0] << 1) | (original[0] >>> 1) | (original[1])) & ~original[0];
+        data[63] = ((original[63] << 1) | (original[63] >>> 1) | (original[62])) & ~original[63];
+        for (int i = 1; i < 63; i++) {
+            data[i] = ((original[i] << 1) | (original[i] >>> 1) | (original[i - 1]) | (original[i + 1])) & ~original[i];
+        }
+        return data;
+    }
+
     public static long[] retract(long[] original)
     {
         long[] data = new long[64];
@@ -108,6 +128,30 @@ public class Grease {
             data[i] &= (original[i] << 1) & (original[i] >>> 1) & (original[i - 1]) & (original[i + 1]);
         }
         return data;
+    }
+
+    public static long[] surface(long[] original)
+    {
+        long[] data = new long[64];
+        data[0] = original[0];
+        data[63] = original[63];
+        for (int i = 1; i < 63; i++) {
+            data[i] = ((original[i] << 1) & (original[i] >>> 1) & (original[i - 1]) & (original[i + 1])) ^ original[i];
+        }
+        return data;
+    }
+
+    public static int count(long[] original)
+    {
+        int c = 0;
+        for (int i = 0; i < 64; i++) {
+            c += Long.bitCount(original[i]);
+        }
+        return c;
+    }
+    public static boolean test(long[] original, int x, int y)
+    {
+        return (original[x] & (1L << y)) != 0;
     }
 
 }
